@@ -53,7 +53,7 @@ class Dataset(DatasetBase):
         assert (index < self._dataset_size)
 
         # FORCE IMAGE FROM VIDEO 5
-        imgname = self.data_dir + '/data/YCB_Video_Dataset/' + self.imgnames[self.indexs_split[index]]
+        imgname = self.data_dir + 'data/YCB_Video_Dataset' + self.imgnames[self.indexs_split[index]]
         video, frame = imgname.split('/')[-2:]
         video = int(video)
         frame = int(frame.split('-')[0])
@@ -73,7 +73,7 @@ class Dataset(DatasetBase):
         img = img / self.std_rgb
 
 
-## LOAD GT OBJECTS AND GRASPS FOR SCENE:
+        ## LOAD GT OBJECTS AND GRASPS FOR SCENE:
         meta = scipy.io.loadmat(imgname.split('-color')[0] + '-meta.mat')
         gt_object_ids = meta['cls_indexes'][:, 0] - 1
 
@@ -98,7 +98,7 @@ class Dataset(DatasetBase):
             all_gt_obj_verts.append(p.T)
             all_gt_resampled_verts.append(resampled_p.T)
             all_gt_obj_faces.append(self.obj_faces[gt_object_ids[i]])
-
+            
             if len(available_repr[i]) == 0:
                 continue
 
@@ -108,8 +108,8 @@ class Dataset(DatasetBase):
             gt_grasp_taxonomy.append(available_taxonomies[i][grasp_ind])
 
 
-## LOAD POSE PREDICTED BY POSE ESTIMATION METHOD
-        predPose = np.load(self.data_dir + '/segmentation-driven-pose/predictions/pred_'+str(self.indexs_split[index])+'.npy', allow_pickle=True)
+        ## LOAD POSE PREDICTED BY POSE ESTIMATION METHOD
+        predPose = np.load(self.data_dir + 'data/segmentation-driven-pose/predictions/pred_'+str(self.indexs_split[index])+'.npy', allow_pickle=True)
         all_obj_verts = []
         all_obj_faces = []
         obj_bboxes = []
@@ -187,6 +187,7 @@ class Dataset(DatasetBase):
     def _read_dataset_paths(self):
 
         self.imgnames = np.load(self.data_dir + '/data/imgnames.npy')
+        #self.imgnames = [name for name in self.imgnames if "/0038/" in name]
         #self.imgnames = np.load('/tmp-network/fast/ecorona/predictions/YCB-Video-Out_per_image/imgnames.npy')
 
         if self._mode == 'test':
@@ -196,9 +197,10 @@ class Dataset(DatasetBase):
             #    newind = np.where(self.imgnames == ('/tmp-network/fast/ecorona/data/YCB_Video_Dataset/data/%s-color.png\n'%filestest[i]))[0][0]
             #    indexs_test.append(newind)
             #np.save('indexs_test_set.npy', indexs_test)
-            indexs_test_files = np.load('indexs_test_set.npy')
+            indexs_test_files = np.load('indexs_train_set.npy')
+            indexs_test_files = [ind for ind in indexs_test_files if "/0038/" in self.imgnames[ind]]
             self.indexs_split = np.arange(len(self.imgnames))
-            self.indexs_split = self.indexs_split[indexs_test_files]
+            self.indexs_split = self.indexs_split[indexs_test_files][:10]
         else:
             self.indexs_split = np.arange(len(self.imgnames))
 
