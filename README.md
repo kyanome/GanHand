@@ -18,6 +18,25 @@ Checkout the github repository to download the [YCB-Affordance dataset](https://
 - conda activate ganhand
 - Python requirements: Run `pip install -r requirements.txt`.
 - **MANO layer**: Follow instructions from the MANO layer project in [here](https://raw.githubusercontent.com/hassony2/manopth).
+- folder structure should look like this:
+
+```
+GanHand/
+  checkpoints/
+    ganhand_pretrained/ # https://drive.google.com/file/d/1QTOmozWi303fXC93dEO7VudPwbrK27gU/view?usp=sharing
+  YCB_Affordance/
+    data/
+      segmentation-driven-pose/
+      YCB_Affordance_grasps/
+      YCB_Video_Dataset/
+        data/
+          0038/ https://drive.google.com/file/d/1QTOmozWi303fXC93dEO7VudPwbrK27gU/view?usp=sharing
+      ...
+  manopth/
+    mano/
+      models/ # https://drive.google.com/file/d/1QTOmozWi303fXC93dEO7VudPwbrK27gU/view?usp=sharing
+      ...
+```
 
 ## Data
 - Download the YCB-Affordance Dataset from [this repository](https://github.com/enriccorona/YCB_Affordance). We use the YCB-Affordance Dataset, an extension of the YCB-Video dataset, to train and test the model. Follow the instructions of the repository to download the dataset. Link this project to the folder where you keep the dataset using the ```data_dir``` argument, when training/testing.
