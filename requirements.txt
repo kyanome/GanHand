@@ -2,7 +2,11 @@ numpy
 tqdm
 matplotlib
 opencv-python
-pytorch
+torch
 torchvision
 glob
 cvxopt
+chumpy
+scikit-learn
+pandas
+transforms3d
