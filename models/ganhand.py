@@ -76,7 +76,7 @@ class Model(BaseModel):
 
         # Initialize MANO layer
         mano_layer_right = ManoLayer(
-            mano_root='/home/enric/libraries/manopth/mano/models/', side='right', use_pca=True, ncomps=45, flat_hand_mean=True)
+            mano_root='./manopth/mano/models/', side='right', use_pca=True, ncomps=45, flat_hand_mean=True)
         if torch.cuda.is_available():
             mano_layer_right = mano_layer_right.cuda()
         self._MANO = mano_layer_right
