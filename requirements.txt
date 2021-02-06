@@ -4,9 +4,13 @@ matplotlib
 opencv-python
 torch
 torchvision
-glob
 cvxopt
 chumpy
 scikit-learn
+scikit-video
 pandas
 transforms3d
+tensorboardX
+trimesh
+pyquaternion
+pybullet
